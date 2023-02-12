@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client",
+    "e2e"
+  ],
+  "scripts": {
+    "build:client": "yarn workspace whatsupp-client build",
+    "dev": "yarn workspace whatsupp-server dev",
+    "dev:debug": "yarn workspace whatsupp-server dev:debug",
+    "heroku-postbuild": "yarn workspace whatsupp-client build",
+    "start": "yarn workspace whatsupp-server start",
+    "dev:cypress": "yarn workspace whatsupp-server dev:e2e",
+    "e2e:open": "yarn workspace whatsupp-e2e e2e:open",
+    "e2e:run": "yarn workspace whatsupp-e2e e2e:run"
+  },
+  "engines": {
+    "node": "^16.18"
+  }
+}
