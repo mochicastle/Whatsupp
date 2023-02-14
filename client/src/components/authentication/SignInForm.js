@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import config from "../../config";
 import FormError from "../layout/FormError";
+import ErrorList from "../layout/ErrorList";
+import translateServerErrors from "../../services/translateServerErrors";
 
 const SignInForm = () => {
   const [userPayload, setUserPayload] = useState({ email: "", password: "" });
@@ -42,9 +44,20 @@ const SignInForm = () => {
           })
         })
         if(!response.ok) {
-          const errorMessage = `${response.status} (${response.statusText})`
-          const error = new Error(errorMessage)
-          throw(error)
+          if (response.status === 401) {
+            // const body = await response.json();
+            // const newErrors = translateServerErrors(body.errors);
+            let newErrors = {};
+            newErrors = {
+              ...newErrors,
+              email: "is not registered",
+            };
+            return setErrors(newErrors);
+          } else {
+            const errorMessage = `${response.status} (${response.statusText})`
+            const error = new Error(errorMessage)
+            throw(error)
+          }
         }
         const userData = await response.json()
         setShouldRedirect(true)
@@ -68,6 +81,7 @@ const SignInForm = () => {
   return (
     <div className="grid-container" onSubmit={onSubmit}>
       <h1>Sign In</h1>
+      <ErrorList errors={errors} />
       <form>
         <div>
           <label>
