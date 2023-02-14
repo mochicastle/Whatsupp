@@ -8,6 +8,7 @@ import RegistrationForm from "./registration/RegistrationForm";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
+import RegularsListPage from "./RegularsListPage";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -36,6 +37,9 @@ const App = (props) => {
         <Route exact path="/">
           <h2>{greeting}</h2>
         </Route>
+        <Route exact path="/regulars">
+          <RegularsListPage currentUser={currentUser} />
+         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
       </Switch>
