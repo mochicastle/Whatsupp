@@ -48,6 +48,7 @@
     "webpack-hot-middleware": "^2.25.3"
   },
   "dependencies": {
+    "api": "^5.0.7",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "cookie-session": "^2.0.0",
@@ -59,6 +60,7 @@
     "objection-unique": "^1.2.2",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
-    "pg": "^8.9.0"
+    "pg": "^8.9.0",
+    "yelp-fusion": "^3.0.0"
   }
 }

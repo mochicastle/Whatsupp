@@ -1,13 +1,18 @@
 //This webpage /regulars/list renders a list of the user's regularly-frequented restaurants and allows the user to add, edit, or review a restaurant.
 
 import React, { useState, useEffect } from "react"
+import { Redirect } from "react-router-dom"
+import { Link } from "react-router-dom"
+
 import ErrorList from "./layout/ErrorList"
 import translateServerErrors from "./../services/translateServerErrors"
+
 import NewRegularForm from "./NewRegularForm"
 import RegularTile from "./RegularTile"
+import RandomRegularPage from "./RandomRegularPage"
 
 const RegularsListPage = (props) => {
-
+    
     const [regulars, setRegulars] = useState([])
 
     const [errors, setErrors] = useState({})
@@ -32,7 +37,6 @@ const RegularsListPage = (props) => {
     }, [])
 
     const addRegular = async (newRegularData) => {
-        console.log("This is new regular data", newRegularData)
         try {
             const response = await fetch("/api/v1/regulars", {
                 method: "POST",
@@ -53,7 +57,6 @@ const RegularsListPage = (props) => {
                 }
             }
             const body = await response.json()
-            console.log("Body: ", body)
             getRegulars()
             setErrors([])
         } catch (err) {
@@ -71,19 +74,40 @@ const RegularsListPage = (props) => {
         )
     })
 
+    const randomRegular = async () => {
+        try {
+            const response = await fetch("/api/v1/regulars/random", {
+                method: "GET",
+                headers: new headers({
+                    "Content-Type": "application/json"
+                })
+            })
+            if (!response.ok) {
+                const errorMessage = `${response.status} (${response.statusText})`
+                const error = new Error(errorMessage)
+                throw(error)
+            }
+            const random = await response.json()
+            //do something with the data
+            console.log("randomly selected from regulars: ", random)
+        } catch (error) {
+            console.error(`Error in fetch: ${error.message}`)
+        }
+    }
+    
     let form
-    if (props.currentUser) {
+    if (props.user) {
         form = <NewRegularForm addRegular={addRegular} />
     }
 
     return (
         <>
-            <h1>Regulars</h1>
+            <h1>On Regular Rotation</h1>
             <ErrorList errors={errors} />
             <div>
                 <ul>{regularTiles}</ul>
             </div>
-            {form}        
+            {form}   
         </>
     )
 }
