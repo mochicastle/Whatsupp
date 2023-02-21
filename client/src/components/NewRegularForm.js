@@ -29,13 +29,14 @@ const NewRegularForm = ({ addRegular }) => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Add a restaurant:
-                    <input
-                        type="text"
+                    <input className="textBoxSizing"
+                        typearea="text"
                         name="name"
                         onChange={handleInputChange}
-                        value={newRegular.name} 
+                        value={newRegular.name}
                     />
                 </label>
+                <br></br>
                 <div className="button-group">
                     <input className="button" type="submit" value="Submit" />
                 </div>

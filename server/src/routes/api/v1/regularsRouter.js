@@ -8,7 +8,6 @@ import cleanUserInput from "../../../services/cleanUserInput.js"
 const regularsRouter = new express.Router()
 
 regularsRouter.get("/", async (req, res) => {
-    console.log("in get router")
     try {
         const regulars = await Regular.query()
         return res.status(200).json({ regulars })
@@ -18,16 +17,24 @@ regularsRouter.get("/", async (req, res) => {
     }
 })
 
+regularsRouter.get("/random", async (req, res) => {
+    console.log("IN THE RANDOM RESTAURANT ROUTER!!!")
+    try {
+        const randomRestaurant = await Regular.select('*').from('regulars').orderByRaw('RAND()').first()
+        console.log("the random restaurant is: ",randomRestaurant)
+        res.json(randomRestaurant)
+    } catch (error) {
+        return res.status(500).json({ errors: error})
+    }
+})
+
 regularsRouter.post("/", async (req, res) => {
-    console.log("in post router")
     const { body } = req
     const data = {
         ...body,
         userId: req.user.id
     } 
-
     const formInput = cleanUserInput(data)
-    console.log(formInput)
 
     try {
         const newRegular = await Regular.query().insertAndFetch(formInput)
