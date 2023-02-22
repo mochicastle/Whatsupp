@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react"
 import { Redirect } from "react-router-dom"
 
 import ErrorList from "./layout/ErrorList"
-import translateServerErrors from "../services/translateServerErrors"
 
 import wildcardRestaurants from "../services/wildcardRestaurants"
 import WildcardTile from "./WildcardTile"
 
 const WildcardForm = (props) => {
-    console.log("wildcardform props: ", props)
     const [wildcard, setWildcard] = useState({
         categories: "",
         latitude: "",
@@ -18,16 +16,6 @@ const WildcardForm = (props) => {
         term: "restaurants",     //Yelp search parameter, will not change
         open_now: true          //Yelp search parameter, will not change
     })
-
-    // Moved below state to App.js
-    // const [wildcardPick, setWildcardPick] = useState({
-    //     name: "",
-    //     street: "",
-    //     city: "",
-    //     state: "",
-    //     phone: "",
-    //     distance: ""
-    //   })
 
     const [errors, setErrors] = useState({})
     const [status, setStatus] = useState("")
@@ -44,7 +32,7 @@ const WildcardForm = (props) => {
         if (!navigator.geolocation) {
             setStatus("Geolocation is not supported by your browser")
         } else {
-            setStatus("Loading...")
+            setStatus("Loading your location...")
             navigator.geolocation.getCurrentPosition(
             (position) => {
                 setStatus(null)
@@ -86,63 +74,11 @@ const WildcardForm = (props) => {
         event.preventDefault()
         if(validateUserInput()) {
             const yelpWildcard = await wildcardRestaurants(wildcard)
-            console.log("yelpwildcard: ", yelpWildcard)
-            // setWildcardPickInState(yelpWildcard)
             props.updateWildcardPick(yelpWildcard)
             clearForm()
             setShouldRedirect(true)
         }
     }
-
-    // State moved to App.js
-    // const setWildcardPickInState = (wildcardToSet) => {
-    //     setWildcardPick({
-    //         name: wildcardToSet.name,
-    //         street: wildcardToSet.location.address1,
-    //         city: wildcardToSet.location.city,
-    //         state: wildcardToSet.location.state,
-    //         phone: wildcardToSet.display_phone,
-    //         distance: (wildcardToSet.distance / 1609.34).toFixed(2)
-    //     })
-    // }
-
-    // const postWildcard = async (wildcardToPost) => {
-    
-    //     const wildcardKeys = ['name', 'street', 'city', 'state', 'phone']
-    //     const wildcardData = Object.fromEntries(Object.entries(wildcardToPost).filter(([key, value]) => wildcardKeys.includes(key)))
-        
-    //     console.log("post wildcardData: ", wildcardData)
-    
-    //     try {
-    //         const response = await fetch(`/api/v1/wildcard/`, {
-    //             method: "POST",
-    //             headers: new Headers({
-    //                 "Content-Type": "application/json",
-    //             }),
-    //             body: JSON.stringify(wildcardData)
-    //         })
-    //         if (!response.ok) {
-    //             if (response.status === 422) {
-    //               const body = await response.json()
-    //               const newErrors = translateServerErrors(body.errors)
-    //               return setErrors(newErrors);
-    //             } else {
-    //               throw new Error(`${response.status} (${response.statusText})`)
-    //             }
-    //         } else {
-    //             const body = await response.json()
-    //             const updatedReviews = meme.reviews.concat(body.review)
-    //             setErrors([])
-    //             setMeme({ ...meme, reviews: updatedReviews })
-    //          }
-    //     } catch (error) {
-            
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     postWildcard(wildcardPick)
-    // }, [])
 
     const validateUserInput = () => {
         let validationErrors = {}
@@ -181,30 +117,21 @@ const WildcardForm = (props) => {
         setErrors({})
     }
 
-    const wildcardTileComponent = (wildcardToDisplay) => {
-        return (
-            <WildcardTile
-                key={wildcardToDisplay.id}
-                id={wildcardToDisplay.id}
-                wildcardToDisplay={wildcardToDisplay}
-            />
-        )
+    if (shouldRedirect) {
+        return <Redirect to="/wildcard/pick"/>
     }
 
-    console.log(props.wildcardPick)
-    console.log(shouldRedirect)
-    if (shouldRedirect) {
+    const wildcardTileComponent = wildcardPick => {
         return (
-            <Redirect push to={{
-                pathname: "/wildcard/pick"
-            }}
+            <WildcardTile
+                wildcardPick={wildcardPick}
             />
         )
     }
 
     return (
         <>
-            <h1>Wildcard</h1>
+            <h1>What are you craving?</h1>
             
             <ErrorList errors={errors} />
            { status === null ? 

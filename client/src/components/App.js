@@ -6,10 +6,12 @@ import getCurrentUser from "../services/getCurrentUser"
 import "../assets/scss/main.scss"
 import RegistrationForm from "./registration/RegistrationForm"
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
+import WildcardAuthenticatedRoute from "./authentication/WildcardAuthenticatedRoute"
+import Menu from "./Menu"
 import SignInForm from "./authentication/SignInForm"
 import TopBar from "./layout/TopBar"
 import RegularsListPage from "./RegularsListPage"
-import RandomRegularPage from "./RandomRegularPage"
+import SuggestedRestaurant from "./SuggestedRestaurant"
 import WildcardForm from "./WildcardForm"
 import WildcardTile from "./WildcardTile"
 
@@ -65,22 +67,21 @@ const App = (props) => {
         </Route>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
+        <AuthenticatedRoute exact={true} path="/menu" component={Menu} user={currentUser} />
+        <AuthenticatedRoute exact={true} path="/suggested-restaurant" component={SuggestedRestaurant} user={currentUser} />
         <AuthenticatedRoute exact={true} path="/regulars" component={RegularsListPage} user={currentUser} />
-        <AuthenticatedRoute exact={true} path="/regulars/random" component={RandomRegularPage} user={currentUser} />
-        <Route
+        <WildcardAuthenticatedRoute
           exact
           path="/wildcard"
           user={currentUser}
-          render={(props) => <WildcardForm {...props} wildcardPick={wildcardPick} setWildcardPick={setWildcardPick} updateWildcardPick={updateWildcardPick} user={currentUser} />}
+          render={(props) => <WildcardForm {...props} wildcardPick={wildcardPick} setWildcardPick={setWildcardPick} updateWildcardPick={updateWildcardPick} />}
         />
-        <Route
+        <WildcardAuthenticatedRoute
           exact
           path="/wildcard/pick"
           user={currentUser}
-          render={(props) => <WildcardTile {...props} wildcardPick={wildcardPick} setWildcardPick={setWildcardPick} updateWildcardPick={updateWildcardPick} user={currentUser} />}
+          render={(props) => <WildcardTile {...props} wildcardPick={wildcardPick} setWildcardPick={setWildcardPick} updateWildcardPick={updateWildcardPick} />}
         />
-        {/* <AuthenticatedRoute exact={true} path="/wildcard" component={WildcardForm} updateWildcardPick={updateWildcardPick} user={currentUser} />
-        <AuthenticatedRoute exact={true} path="/wildcard/pick" component={WildcardTile} updateWildcardPick={updateWildcardPick} user={currentUser} /> */}
       </Switch>
     </Router>
   )
