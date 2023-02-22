@@ -3,7 +3,6 @@ dotenv.config()
 
 'use strict'
 import _send from '@tonybadguy/call-me-maybe'
-// const _send = require('@tonybadguy/call-me-maybe')
 
 class YelpClient {
 
@@ -22,7 +21,6 @@ class YelpClient {
     }
 
     search(wildcardData){
-        console.log(wildcardData)
         return this.send({
           url: 'https://api.yelp.com/v3/businesses/search',
           query: wildcardData,
@@ -30,11 +28,5 @@ class YelpClient {
         })
     }
 }
-
-// const createClient = (apiKey, options) => {
-//     return new YelpClient(apiKey, options)
-// }
-  
-// module.exports = createClient
 
 export default YelpClient

@@ -15,16 +15,13 @@ wildcardRouter.get("/", async (req, res) => {
         ...wildcardData,
         radius: convertedRadius
     }
-    console.log("router wildcard: ", wildcard)
 
     try {
         const yelpClient = new YelpClient
         const restaurantsResponse = await yelpClient.search(wildcard)
 
         const restaurantsData = restaurantsResponse.jsonBody
-        console.log("restaurantsData: ", restaurantsData.businesses)
         const wildcardPick = pickWildcard(restaurantsData.businesses)
-        console.log("wildcardPick: ", wildcardPick)
         return res
             .set({ "Content-Type": "application/json" })
             .status(200)

@@ -14,6 +14,24 @@ const TopBar = ({ user }) => {
     </li>,
   ];
 
+  const unauthenticatedHome = [
+    <li key="unauth-home">
+      <Link to="/">Home</Link>
+    </li>
+  ]
+
+  const authenticatedMenu = [
+    <li key="auth-menu">
+      <Link to="/menu">Menu</Link>
+    </li>
+  ]
+
+  const authenticatedEditRegulars = [
+    <li key="edit-favorites">
+      <Link to="/regulars">Edit Favorites</Link>
+    </li>
+  ];
+
   const authenticatedListItems = [
     <li key="sign-out">
       <SignOutButton />
@@ -25,9 +43,8 @@ const TopBar = ({ user }) => {
       <div className="top-bar-left">
         <ul className="menu">
           <li className="menu-text">WhatSupp</li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
+        <ul className="menu">{user ? authenticatedMenu : unauthenticatedHome }</ul>
+        <ul className="menu">{user ? authenticatedEditRegulars : null }</ul>
         </ul>
       </div>
       <div className="top-bar-right">

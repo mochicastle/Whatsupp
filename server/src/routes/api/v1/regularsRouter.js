@@ -17,17 +17,6 @@ regularsRouter.get("/", async (req, res) => {
     }
 })
 
-regularsRouter.get("/random", async (req, res) => {
-    console.log("IN THE RANDOM RESTAURANT ROUTER!!!")
-    try {
-        const randomRestaurant = await Regular.select('*').from('regulars').orderByRaw('RAND()').first()
-        console.log("the random restaurant is: ",randomRestaurant)
-        res.json(randomRestaurant)
-    } catch (error) {
-        return res.status(500).json({ errors: error})
-    }
-})
-
 regularsRouter.post("/", async (req, res) => {
     const { body } = req
     const data = {
