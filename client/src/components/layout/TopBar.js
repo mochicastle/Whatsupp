@@ -42,7 +42,7 @@ const TopBar = ({ user }) => {
     <div className="top-bar">
       <div className="top-bar-left">
         <ul className="menu">
-          <li className="menu-text">WhatSupp</li>
+          {/* <li className="menu-text">WhatSupp</li> */}
         <ul className="menu">{user ? authenticatedMenu : unauthenticatedHome }</ul>
         <ul className="menu">{user ? authenticatedEditRegulars : null }</ul>
         </ul>
