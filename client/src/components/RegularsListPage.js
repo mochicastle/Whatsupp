@@ -82,35 +82,15 @@ const RegularsListPage = (props) => {
     }
 
     return (
-        <div className="grid-container">
-            <div className="grid-x grid-padding-x">
-                <div className="cell medium-3 align-center"></div>
-                <div className="cell medium-6 align-center">
-                    <h1>On Regular Rotation</h1>
-                    <ErrorList errors={errors} />
-                    <div className="grid-x">
-                        <Grid container>
-                            {regularTiles}
-                        </Grid>
-
-                    </div>
-                    {form}   
-                </div>
-                <div className="cell medium-3 align-center"></div>
+        <div className="f-container text-center">
+            <h1 className="f-header">On Regular Rotation</h1>
+            <ErrorList errors={errors} />
+            <div className="text-center">
+                <ul>{regularTiles}</ul>
             </div>
+            {form}   
         </div>
     )
-
-    // return (
-    //     <>
-    //         <h1>On Regular Rotation</h1>
-    //         <ErrorList errors={errors} />
-    //         <div>
-    //             <ul>{regularTiles}</ul>
-    //         </div>
-    //         {form}   
-    //     </>
-    // )
 }
 
 export default RegularsListPage

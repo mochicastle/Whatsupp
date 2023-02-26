@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { hot } from "react-hot-loader/root"
-import { Typography } from '@material-ui/core'
 
 import getCurrentUser from "../services/getCurrentUser"
 import "../assets/scss/main.scss"
@@ -10,7 +9,6 @@ import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
 import WildcardAuthenticatedRoute from "./authentication/WildcardAuthenticatedRoute"
 import Menu from "./Menu"
 import LandingPage from "./LandingPage"
-import SignInForm from "./authentication/SignInForm"
 import TopBar from "./layout/TopBar"
 import RegularsListPage from "./RegularsListPage"
 import SuggestedRestaurant from "./SuggestedRestaurant"
@@ -18,7 +16,7 @@ import WildcardForm from "./WildcardForm"
 import WildcardTile from "./WildcardTile"
 
 const App = (props) => {
-
+  console.log("App: ", props)
   const [wildcardPick, setWildcardPick] = useState({
     name: "",
     street: "",
@@ -41,6 +39,19 @@ const App = (props) => {
   }
   
   const [currentUser, setCurrentUser] = useState(undefined)
+  const [topBarVisible, setTopBarVisible] = useState(false)
+
+  const handleMouseCursor = (event) => {
+    const y = event.clientY
+
+    if (y <= 50) {
+      setTopBarVisible(true)
+    } else {
+      setTopBarVisible(false)
+    }
+  }
+
+  window.addEventListener("mousemove", handleMouseCursor)
 
   const fetchCurrentUser = async () => {
     try {
@@ -57,7 +68,8 @@ const App = (props) => {
 
   return (
     <Router>
-      <TopBar user={currentUser} />
+      {/* <TopBar user={currentUser} /> */}
+      {location.pathname !== '/' && topBarVisible && <TopBar user={currentUser} />}
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/users/new" component={RegistrationForm} />
