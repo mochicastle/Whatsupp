@@ -3,10 +3,12 @@ import path from "path";
 import logger from "morgan";
 import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
+
 import "./boot.js";
 import configuration from "./config.js";
 import addMiddlewares from "./middlewares/addMiddlewares.js";
 import rootRouter from "./routes/rootRouter.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();

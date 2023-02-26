@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from "react"
 import { Redirect } from "react-router-dom"
 import { Link } from "react-router-dom"
+// import { Typography } from "@material-ui/core"
+import { Box, Grid } from '@material-ui/core'
+
 
 import ErrorList from "./layout/ErrorList"
 import translateServerErrors from "./../services/translateServerErrors"
@@ -79,14 +82,14 @@ const RegularsListPage = (props) => {
     }
 
     return (
-        <>
-            <h1>On Your Regular Rotation</h1>
+        <div className="f-container text-center">
+            <h1 className="f-header">On Regular Rotation</h1>
             <ErrorList errors={errors} />
-            <div>
+            <div className="text-center">
                 <ul>{regularTiles}</ul>
             </div>
             {form}   
-        </>
+        </div>
     )
 }
 

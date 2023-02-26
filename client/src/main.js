@@ -1,5 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import App from "./components/App";
 import config from "./config";
@@ -11,12 +12,24 @@ document.addEventListener("DOMContentLoaded", () => {
   if (reactElement) {
     if (config.nodeEnv === "development") {
       try {
-        render(<App />, reactElement);
+        render(
+          // render(<App />, reactElement);
+          <BrowserRouter>
+            <App />
+            </BrowserRouter>,
+          reactElement
+        );
       } catch (e) {
         render(<RedBox error={e} />, reactElement);
       }
     } else {
-      render(<App />, reactElement);
+      // render(<App />, reactElement);
+      render (
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>,
+        reactElement
+      )
     }
   }
 });

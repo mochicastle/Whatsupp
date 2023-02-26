@@ -8,7 +8,7 @@ import RegistrationForm from "./registration/RegistrationForm"
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
 import WildcardAuthenticatedRoute from "./authentication/WildcardAuthenticatedRoute"
 import Menu from "./Menu"
-import SignInForm from "./authentication/SignInForm"
+import LandingPage from "./LandingPage"
 import TopBar from "./layout/TopBar"
 import RegularsListPage from "./RegularsListPage"
 import SuggestedRestaurant from "./SuggestedRestaurant"
@@ -16,7 +16,7 @@ import WildcardForm from "./WildcardForm"
 import WildcardTile from "./WildcardTile"
 
 const App = (props) => {
-
+  console.log("App: ", props)
   const [wildcardPick, setWildcardPick] = useState({
     name: "",
     street: "",
@@ -30,15 +30,28 @@ const App = (props) => {
     setWildcardPick({
       ...wildcardPick,
       name: wildcard.name,
-      street: wildcard.location.address1,
-      city: wildcard.location.city,
-      state: wildcard.location.state,
-      phone: wildcard.display_phone,
+      street: wildcard.location.address1 ? wildcard.location.address1 : null,
+      city: wildcard.location.city ? wildcard.location.city : null,
+      state: wildcard.location.state ? wildcard.location.state : null,
+      phone: wildcard.display_phone ? wildcard.display_phone : null,
       distance: (wildcard.distance / 1609.34).toFixed(2)
     })
   }
   
   const [currentUser, setCurrentUser] = useState(undefined)
+  const [topBarVisible, setTopBarVisible] = useState(false)
+
+  const handleMouseCursor = (event) => {
+    const y = event.clientY
+
+    if (y <= 50) {
+      setTopBarVisible(true)
+    } else {
+      setTopBarVisible(false)
+    }
+  }
+
+  window.addEventListener("mousemove", handleMouseCursor)
 
   const fetchCurrentUser = async () => {
     try {
@@ -53,20 +66,15 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
-  let greeting = "Hello from react"
-  if (currentUser) {
-    greeting += `, ${currentUser.email}`
-  }
-
   return (
     <Router>
-      <TopBar user={currentUser} />
+      {/* <TopBar user={currentUser} /> */}
+      {location.pathname !== '/' && topBarVisible && <TopBar user={currentUser} />}
       <Switch>
-        <Route exact path="/">
-          <h2>{greeting}</h2>
-        </Route>
+        <Route exact path="/" component={LandingPage} />
         <Route exact path="/users/new" component={RegistrationForm} />
-        <Route exact path="/user-sessions/new" component={SignInForm} />
+        {/* <Route exact path="/user-sessions/new" component={SignInForm} /> */}
+        <Route exact path="/user-sessions/new" component={LandingPage} />
         <AuthenticatedRoute exact={true} path="/menu" component={Menu} user={currentUser} />
         <AuthenticatedRoute exact={true} path="/suggested-restaurant" component={SuggestedRestaurant} user={currentUser} />
         <AuthenticatedRoute exact={true} path="/regulars" component={RegularsListPage} user={currentUser} />
