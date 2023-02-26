@@ -10,6 +10,7 @@ const wildcardRestaurants = async (wildcardData) => {
           }
           const wildcardRestaurant = await response.json()
           wildcardPick = wildcardRestaurant
+        //   console.log("wildcardPick: ", wildcardPick)
           return wildcardPick
     } catch (error) {
         console.error(`Error in fetch: ${error.message}`)

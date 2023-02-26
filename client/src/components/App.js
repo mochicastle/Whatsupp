@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { hot } from "react-hot-loader/root"
+import { Typography } from '@material-ui/core'
 
 import getCurrentUser from "../services/getCurrentUser"
 import "../assets/scss/main.scss"
@@ -8,6 +9,7 @@ import RegistrationForm from "./registration/RegistrationForm"
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute"
 import WildcardAuthenticatedRoute from "./authentication/WildcardAuthenticatedRoute"
 import Menu from "./Menu"
+import LandingPage from "./LandingPage"
 import SignInForm from "./authentication/SignInForm"
 import TopBar from "./layout/TopBar"
 import RegularsListPage from "./RegularsListPage"
@@ -30,10 +32,10 @@ const App = (props) => {
     setWildcardPick({
       ...wildcardPick,
       name: wildcard.name,
-      street: wildcard.location.address1,
-      city: wildcard.location.city,
-      state: wildcard.location.state,
-      phone: wildcard.display_phone,
+      street: wildcard.location.address1 ? wildcard.location.address1 : null,
+      city: wildcard.location.city ? wildcard.location.city : null,
+      state: wildcard.location.state ? wildcard.location.state : null,
+      phone: wildcard.display_phone ? wildcard.display_phone : null,
       distance: (wildcard.distance / 1609.34).toFixed(2)
     })
   }
@@ -53,20 +55,14 @@ const App = (props) => {
     fetchCurrentUser()
   }, [])
 
-  let greeting = "Hello from react"
-  if (currentUser) {
-    greeting += `, ${currentUser.email}`
-  }
-
   return (
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/">
-          <h2>{greeting}</h2>
-        </Route>
+        <Route exact path="/" component={LandingPage} />
         <Route exact path="/users/new" component={RegistrationForm} />
-        <Route exact path="/user-sessions/new" component={SignInForm} />
+        {/* <Route exact path="/user-sessions/new" component={SignInForm} /> */}
+        <Route exact path="/user-sessions/new" component={LandingPage} />
         <AuthenticatedRoute exact={true} path="/menu" component={Menu} user={currentUser} />
         <AuthenticatedRoute exact={true} path="/suggested-restaurant" component={SuggestedRestaurant} user={currentUser} />
         <AuthenticatedRoute exact={true} path="/regulars" component={RegularsListPage} user={currentUser} />

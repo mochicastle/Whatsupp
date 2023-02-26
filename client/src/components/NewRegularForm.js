@@ -25,11 +25,11 @@ const NewRegularForm = ({ addRegular }) => {
     }
 
     return (
-        <div>
+        <div className="new-reg-form-grid-container">
             <form onSubmit={handleSubmit}>
                 <label>
                     Add a restaurant:
-                    <input className="textBoxSizing"
+                    <input className="textBoxSizing new-reg-form-textbox"
                         typearea="text"
                         name="name"
                         onChange={handleInputChange}
@@ -37,8 +37,8 @@ const NewRegularForm = ({ addRegular }) => {
                     />
                 </label>
                 <br></br>
-                <div className="button-group">
-                    <input className="button" type="submit" value="Submit" />
+                <div className="button-group new-reg-form-button-group">
+                    <input className="button new-reg-form-button" type="submit" value="Submit" />
                 </div>
             </form>
         </div>

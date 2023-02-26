@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from "react"
 import { Redirect } from "react-router-dom"
 import { Link } from "react-router-dom"
+// import { Typography } from "@material-ui/core"
+import { Box, Grid } from '@material-ui/core'
+
 
 import ErrorList from "./layout/ErrorList"
 import translateServerErrors from "./../services/translateServerErrors"
@@ -79,15 +82,35 @@ const RegularsListPage = (props) => {
     }
 
     return (
-        <>
-            <h1>On Your Regular Rotation</h1>
-            <ErrorList errors={errors} />
-            <div>
-                <ul>{regularTiles}</ul>
+        <div className="grid-container">
+            <div className="grid-x grid-padding-x">
+                <div className="cell medium-3 align-center"></div>
+                <div className="cell medium-6 align-center">
+                    <h1>On Regular Rotation</h1>
+                    <ErrorList errors={errors} />
+                    <div className="grid-x">
+                        <Grid container>
+                            {regularTiles}
+                        </Grid>
+
+                    </div>
+                    {form}   
+                </div>
+                <div className="cell medium-3 align-center"></div>
             </div>
-            {form}   
-        </>
+        </div>
     )
+
+    // return (
+    //     <>
+    //         <h1>On Regular Rotation</h1>
+    //         <ErrorList errors={errors} />
+    //         <div>
+    //             <ul>{regularTiles}</ul>
+    //         </div>
+    //         {form}   
+    //     </>
+    // )
 }
 
 export default RegularsListPage

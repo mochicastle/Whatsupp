@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react"
+import { Box, Grid } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
+import Noodles1 from '../assets/Images/Noodles1.png'
 
 const SuggestedRestaurant = (props) => {
     const [suggestion, setSuggestion] = useState({
@@ -32,11 +35,20 @@ const SuggestedRestaurant = (props) => {
         randomRestaurant()
     }, [])
 
+    // return (
+    //     <div>
+    //         <h1>You're having {suggestion.name}!</h1>
+    //     </div>
+    // )
+
     return (
-        <div>
-            <h1>You're having {suggestion.name}!</h1>
-        </div>
-    )
+        <Grid item xs={4}>  
+             <Typography variant="h4" align="center">
+                You're having {suggestion.name}!
+              </Typography>
+              <img src={Noodles1} alt="Cartoon noodles" />
+        </Grid>  
+      )
 }
 
 export default SuggestedRestaurant
