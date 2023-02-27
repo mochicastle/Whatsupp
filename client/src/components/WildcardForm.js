@@ -135,18 +135,13 @@ const WildcardForm = (props) => {
     }
 
     return (
-        // <div className="grid-container">
         <Grid container spacing={3}>
-            {/* <div className="grid-x align-center"> */}
-            {/* <div className="image-container"> */}
             <Grid item xs={12} sm={6}>
                 <img src={AstroTyping} alt="Cartoon astronaut typing" />
             </Grid>
-                {/* <div className="cell small-10 medium-8 large-6"> */}
                 <Grid item xs={12} sm={6} className="text-center">
                     <h1 className="wildcard-header">What are you craving?</h1>
                     <ErrorList errors={errors} />
-                    {/* { status === null ?  */}
                     { isLoading ? (
                             <CircularProgress size={24} />
                     ) : (
@@ -167,14 +162,12 @@ const WildcardForm = (props) => {
                             </div>
                             <div className="cell small-12">
                                 <label htmlFor="radius" className="wildcard-font distance-margin text-center">Distance: within
-                                {/* <div className="input-group"> */}
                                     <input className="radiusTextBoxSizing centered-input"
                                     typearea="text"
                                     name="radius"
                                     onChange={handleInputChange}
                                     value={wildcard.radius}
                                     /> miles
-                                {/* </div> */}
                                 </label>
                             </div>
                             <div className="cell small-12">
@@ -191,21 +184,14 @@ const WildcardForm = (props) => {
                                     </legend>
                                 </fieldset>
                             </div>
-                            {/* <div className="button-group cell small-12">
-                                <input className="button" type="submit" value="Submit" />
-                            </div> */}
                             <div className="cell small-12 button-margin text-center">
                                 <Button className="submit-button text-center" type="Submit" value="Submit" variant="contained" style={{backgroundColor: "#F3B516", color: "#000000", borderRadius: "10px", border: "1px solid #000000"}} onClick={handleSubmit}>
                                     Submit
                                 </Button>
                             </div>
                         </form>
-                        // :
-                        // <h3>Status: {status}</h3>
                     )}
-                    
                 </Grid>
-            {/* </div> */}
         </Grid>
     )
 }

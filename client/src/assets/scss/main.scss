@@ -1,8 +1,7 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
-// @import '@fontsource/roboto';
 @include foundation-everything;
-// place global css here
+
 *,
 *::before,
 *::after {
@@ -16,13 +15,17 @@
 
 body {
   background-color: #37DCFF;
-  // font-family: "Roboto";
 }
 
 body.home-page {
   .top-bar {
     display: none;
   }
+}
+
+.reg-form-styling {
+  margin-top: -35px;
+  height: 100%;
 }
 
 .sign-out-button {
@@ -174,6 +177,7 @@ legend {
   border-radius: 0.5rem;
   color: white;
   cursor: pointer;
+  text-align: center;
 }
 
 .new-reg-form-button:hover {
