@@ -52,7 +52,6 @@ const LandingPage = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(errors, "errors");
     validateInput(userPayload);
     try {
       if (Object.keys(errors).length === 0) {
@@ -103,7 +102,7 @@ const LandingPage = (props) => {
   return (
     <>
       <Grid container component="main" className={classes.root}>
-        <ErrorList errors={errors} />
+        {/* <ErrorList errors={errors} /> */}
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -113,6 +112,7 @@ const LandingPage = (props) => {
               Welcome
             </Typography>
             <form className={classes.form} noValidate>
+              <label>
               <TextField
                 type="text"
                 value={userPayload.email}
@@ -128,6 +128,7 @@ const LandingPage = (props) => {
                 autoFocus
               />
               <FormError error={errors.email} />
+              </label>
               <TextField
                 value={userPayload.password}
                 onChange={onInputChange}
@@ -142,10 +143,6 @@ const LandingPage = (props) => {
                 autoComplete="current-password"
               />
               <FormError error={errors.password} />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
               <Button
                 type="submit"
                 fullWidth
@@ -163,9 +160,6 @@ const LandingPage = (props) => {
                   </Link>
                 </Grid>
               </Grid>
-              {/* <Box mt={5}>
-                            <Copyright />
-                            </Box> */}
             </form>
           </div>
         </Grid>

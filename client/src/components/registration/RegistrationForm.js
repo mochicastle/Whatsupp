@@ -7,7 +7,7 @@ import translateServerErrors from "../../services/translateServerErrors";
 import { Avatar, Button, Container, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Paper, Box, Grid, Typography, makeStyles } from "@material-ui/core"
 import registrationStyles from "../../services/registrationStyles"
 import madeWithLove from "../../services/madeWithLove"
-import whatsuppLogoFAFAFA from "../../assets/Images/whatsuppLogoFAFAFA.png"
+import RegistrationLogo from "../../assets/Images/RegistrationLogo.png"
 
 const RegistrationForm = () => {
   const classes = registrationStyles()
@@ -111,17 +111,14 @@ const RegistrationForm = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="reg-form-styling">
       <CssBaseline />
-      <ErrorList errors={errors} />
       <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
-        <img src={whatsuppLogoFAFAFA} />
+        <img src={RegistrationLogo} />
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        {/* <ErrorList errors={errors} /> */}
         <form className={classes.form} onSubmit={onSubmit} noValidate >
           <TextField
             variant="outlined"
@@ -136,7 +133,7 @@ const RegistrationForm = () => {
             onChange={onInputChange}
             autoFocus
           />
-          <FormError error={errors.email} />
+          <FormError error={errors.username} />
           <TextField
             variant="outlined"
             margin="normal"
@@ -148,7 +145,6 @@ const RegistrationForm = () => {
             autoComplete="email"
             value={userPayload.email}
             onChange={onInputChange}
-            autoFocus
           />
           <FormError error={errors.email} />
           <TextField
@@ -164,10 +160,19 @@ const RegistrationForm = () => {
             onChange={onInputChange}
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <FormError error={errors.passwordConfirmation} />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="passwordConfirmation"
+            label="Password Confirmation"
+            type="password"
+            value={userPayload.passwordConfirmation}
+            onChange={onInputChange}
+            />
+            <FormError error={errors.password} />
           <Button
             type="submit"
             fullWidth
@@ -179,9 +184,6 @@ const RegistrationForm = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              {/* <Link href="#" variant="body2">
-                Forgot password?
-              </Link> */}
             </Grid>
             <Grid item>
               <Link href="/" variant="body2">
@@ -196,56 +198,6 @@ const RegistrationForm = () => {
       </Box>
     </Container>
   )
-
-  // return (
-  //   <div className="grid-container">
-  //     <h1>Register</h1>
-  //     <ErrorList errors={errors} />
-  //     <form onSubmit={onSubmit}>
-  //       <div>
-  //         <label>
-  //           Username
-  //           <input type="text" name="username" value={userPayload.username} onChange={onInputChange} />
-  //           <FormError error={errors.username} />
-  //         </label>
-  //       </div>
-  //       <div>
-  //         <label>
-  //           Email
-  //           <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
-  //           <FormError error={errors.email} />
-  //         </label>
-  //       </div>
-  //       <div>
-  //         <label>
-  //           Password
-  //           <input
-  //             type="password"
-  //             name="password"
-  //             value={userPayload.password}
-  //             onChange={onInputChange}
-  //           />
-  //           <FormError error={errors.password} />
-  //         </label>
-  //       </div>
-  //       <div>
-  //         <label>
-  //           Password Confirmation
-  //           <input
-  //             type="password"
-  //             name="passwordConfirmation"
-  //             value={userPayload.passwordConfirmation}
-  //             onChange={onInputChange}
-  //           />
-  //           <FormError error={errors.passwordConfirmation} />
-  //         </label>
-  //       </div>
-  //       <div>
-  //         <input type="submit" className="button" value="Register" />
-  //       </div>
-  //     </form>
-  //   </div>
-  // );
 };
 
 export default RegistrationForm;

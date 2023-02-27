@@ -16,7 +16,6 @@ import WildcardForm from "./WildcardForm"
 import WildcardTile from "./WildcardTile"
 
 const App = (props) => {
-  console.log("App: ", props)
   const [wildcardPick, setWildcardPick] = useState({
     name: "",
     street: "",
