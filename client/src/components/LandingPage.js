@@ -62,7 +62,6 @@ const LandingPage = (props) => {
             "Content-Type": "application/json",
           }),
         });
-        debugger;
         if (!response.ok) {
           if (response.status === 401) {
             // const body = await response.json();
