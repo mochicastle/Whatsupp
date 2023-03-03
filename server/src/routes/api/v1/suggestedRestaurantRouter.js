@@ -7,7 +7,8 @@ const suggestedRestaurantRouter = new express.Router()
 suggestedRestaurantRouter.get("/", async (req, res) => {
     try {
         const user = req.user
-
+        console.log("user: ", user)
+        
         const favorites = await user.$relatedQuery("regulars")
         console.log(favorites)
         const randomIndex = Math.floor(Math.random() * favorites.length)
