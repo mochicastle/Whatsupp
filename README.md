@@ -14,3 +14,8 @@ JavaScript, HTML, CSS, React.js, Express, Node, Material UI, Foundation UI, Babe
 ### APIs:
 1. Geolocation
 2. Yelp Fusion
+
+### KNOWN BUGS:
+1. Registration form does not currently check for whether a user's username and email address are in use.
+2. Reloading the /wildcard/pick web page results in a 404 error.
+3. If the Yelp API returns with no results for restaurants that meet the user's criteria, the /wildcard/pick web page will not render.
