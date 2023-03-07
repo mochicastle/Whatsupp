@@ -10,7 +10,7 @@ import RegularTile from "./RegularTile"
 
 const RegularsListPage = (props) => {
     
-    const [regulars, setRegulars] = useState([])
+    // const [regulars, setRegulars] = useState([])
 
     const [errors, setErrors] = useState({})
 
