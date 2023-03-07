@@ -1,6 +1,4 @@
 import React from "react"
-import { Box, Grid } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
 
 const RegularTile = (props) => {
   const { name } = props
@@ -13,10 +11,3 @@ const RegularTile = (props) => {
 }
 
 export default RegularTile
-
-{/* <Grid
-container
-direction="column"
-alignItems="center"
-spacing={2}
-> */}

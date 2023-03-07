@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react"
-import { Box, Grid } from '@material-ui/core'
-import Typography from '@material-ui/core/Typography'
 import AstroPizza from '../assets/Images/AstroPizza.png'
 
 const SuggestedRestaurant = (props) => {

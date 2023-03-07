@@ -16,6 +16,8 @@ import WildcardForm from "./WildcardForm"
 import WildcardTile from "./WildcardTile"
 
 const App = (props) => {
+  const [regulars, setRegulars] = useState([])
+  
   const [wildcardPick, setWildcardPick] = useState({
     name: "",
     street: "",
@@ -74,9 +76,21 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         {/* <Route exact path="/user-sessions/new" component={SignInForm} /> */}
         <Route exact path="/user-sessions/new" component={LandingPage} />
-        <AuthenticatedRoute exact={true} path="/menu" component={Menu} user={currentUser} />
+        {/* <AuthenticatedRoute exact={true} path="/menu" component={Menu} user={currentUser} /> */}
+        <WildcardAuthenticatedRoute
+          exact
+          path="/menu"
+          user={currentUser}
+          render={(props) => <Menu {...props} regulars={regulars} setRegulars={setRegulars} />} 
+        />
         <AuthenticatedRoute exact={true} path="/suggested-restaurant" component={SuggestedRestaurant} user={currentUser} />
-        <AuthenticatedRoute exact={true} path="/regulars" component={RegularsListPage} user={currentUser} />
+        {/* <AuthenticatedRoute exact={true} path="/regulars" component={RegularsListPage} user={currentUser} /> */}
+        <WildcardAuthenticatedRoute 
+          exact
+          path="/regulars"
+          user={currentUser}
+          render={(props) => <RegularsListPage {...props} regulars={regulars} setRegulars={setRegulars} />}
+        />
         <WildcardAuthenticatedRoute
           exact
           path="/wildcard"

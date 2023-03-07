@@ -1,16 +1,40 @@
-import React from 'react'
-import { Button, CssBaseline, Grid, Paper, Typography } from "@material-ui/core"
-import menuStyles from '../services/menuStyles'
-// import Spaghetti from '../assets/Images/Spaghetti.png'
+import React, { useState } from "react"
+import { Redirect } from "react-router-dom"
+import { Button } from "@material-ui/core"
+import FormError from "./layout/FormError"
+import menuStyles from "../services/menuStyles"
 
 const Menu = (props) => {
+    console.log("Menu props: ", props)
+
     const classes = menuStyles()
+    
+    const [errors, setErrors] = useState({
+        message: ""
+    })
+
+    const handleFavoritesSubmit = (event) => {
+        event.preventDefault()
+        let newErrors = {}
+        if (!props.regulars) {
+            newErrors = {
+                ...newErrors,
+                message: "Click 'Edit Favorites' in the top bar to add your favorite restaurants.",
+              }
+              return newErrors
+        } else {
+            return <Redirect to="/suggested-restaurant"/>
+        }
+    }
+    
     return (
         <div className={classes.root}>
             <div className={classes.buttonContainer}>
-                <Button className={classes.button} variant="contained" color="primary" onClick={() => location.href = '/suggested-restaurant'}>
+                {/* <Button className={classes.button} variant="contained" color="primary" onClick={() => location.href = '/suggested-restaurant'}> */}
+                <Button className={classes.button} variant="contained" color="primary" onClick={handleFavoritesSubmit}>
                 Pick from favorites
                 </Button>
+                <FormError error={errors.message} />
                 <Button className={classes.button} variant="contained" color="secondary" onClick={() => location.href = '/wildcard'}>
                 Pick a wildcard
                 </Button>

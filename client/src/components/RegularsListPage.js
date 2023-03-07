@@ -1,11 +1,6 @@
 //This webpage /regulars/list renders a list of the user's regularly-frequented restaurants and allows the user to add, edit, or review a restaurant.
 
 import React, { useState, useEffect } from "react"
-import { Redirect } from "react-router-dom"
-import { Link } from "react-router-dom"
-// import { Typography } from "@material-ui/core"
-import { Box, Grid } from '@material-ui/core'
-
 
 import ErrorList from "./layout/ErrorList"
 import translateServerErrors from "./../services/translateServerErrors"
