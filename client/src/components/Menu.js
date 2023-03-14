@@ -4,12 +4,9 @@ import { Button, CssBaseline, Grid, Paper, Typography } from "@material-ui/core"
 import menuStyles from "../services/menuStyles";
 
 const Menu = (props) => {
-  console.log("menu > props: ", props);
-  console.log(props.regulars);
   const classes = menuStyles();
 
   const getRegulars = async () => {
-    console.log("RegularsListPage > getRegulars > props.user.id: ", props.user.id);
     try {
       //const response = await fetch("/api/v1/regulars")
       //include user's ID in the request to get favorites:
@@ -30,18 +27,12 @@ const Menu = (props) => {
     getRegulars();
   }, []);
 
-  console.log("Regulars length: ", props.regulars.length);
-
   const handleFavoritesSubmit = (event) => {
-    // event.preventDefault();
     //if user has no regulars, redirect to /regulars page
     //else if user has regulars, link to /suggested-restaurant
     if (props.regulars.length === 0) {
-      console.log("redirecting to /regulars");
-      //   return <Redirect to="/regulars" />;
       return (location.href = "/regulars");
     } else {
-      //   return <Redirect to="/suggested-restaurant" />;
       return (location.href = "/suggested-restaurant");
     }
   };
@@ -62,7 +53,6 @@ const Menu = (props) => {
           variant="contained"
           color="secondary"
           onClick={() => (location.href = "/wildcard")}
-          //   onClick={handleWildcardSubmit}
         >
           Pick a wildcard
         </Button>
