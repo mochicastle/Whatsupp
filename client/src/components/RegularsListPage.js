@@ -13,7 +13,9 @@ import NewRegularForm from "./NewRegularForm";
 import RegularTile from "./RegularTile";
 
 const RegularsListPage = (props) => {
-  const [regulars, setRegulars] = useState([]);
+  console.log("RegularsListPage > props: ", props);
+  //move regulars state up to App.js so Menu component can also access regulars state
+  //const [regulars, setRegulars] = useState([]);
 
   const [errors, setErrors] = useState({});
 
@@ -22,14 +24,14 @@ const RegularsListPage = (props) => {
     try {
       //const response = await fetch("/api/v1/regulars")
       //include user's ID in the request to get favorites:
-      const response = await fetch(`/api/v1/regulars?user_id=${props.user.id}`);
+      const response = await fetch(`/api/v1/regulars?userId=${props.user.id}`);
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`;
         const error = new Error(errorMessage);
         throw error;
       }
       const regularData = await response.json();
-      setRegulars(regularData.regulars);
+      props.setRegulars(regularData.regulars);
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`);
     }
@@ -70,7 +72,7 @@ const RegularsListPage = (props) => {
     }
   };
 
-  const regularTiles = regulars.map((regular) => {
+  const regularTiles = props.regulars.map((regular) => {
     //Render only the favorites that belong to the specific signed-in user
     if (regular.userId === props.user.id) {
       return <RegularTile key={regular.id} id={regular.id} name={regular.name} />;
@@ -81,6 +83,8 @@ const RegularsListPage = (props) => {
   if (props.user) {
     form = <NewRegularForm addRegular={addRegular} />;
   }
+
+  console.log("RegularsListPage > regulars: ", props.regulars);
 
   return (
     <div className="f-container text-center">
