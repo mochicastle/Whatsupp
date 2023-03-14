@@ -20,6 +20,7 @@ const WildcardForm = (props) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [wildcardError, setWildcardError] = useState(false);
   const [status, setStatus] = useState("");
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,9 +80,22 @@ const WildcardForm = (props) => {
     event.preventDefault();
     if (validateUserInput()) {
       const yelpWildcard = await wildcardRestaurants(wildcard);
-      props.updateWildcardPick(yelpWildcard);
-      clearForm();
-      setShouldRedirect(true);
+      // console.log("yelpWildcard: ", yelpWildcard);
+      if (yelpWildcard === "There are no restaurants meeting your criteria") {
+        setWildcardError(true);
+        setWildcard({
+          ...wildcard,
+          categories: "",
+          radius: "",
+          price: [],
+          term: "restaurants",
+          open_now: true,
+        });
+      } else {
+        props.updateWildcardPick(yelpWildcard);
+        clearForm();
+        setShouldRedirect(true);
+      }
     }
   };
 
@@ -239,6 +253,7 @@ const WildcardForm = (props) => {
               >
                 Submit
               </Button>
+              {wildcardError && <p>No restaurants match your criteria, please try again</p>}
             </div>
           </form>
         )}
