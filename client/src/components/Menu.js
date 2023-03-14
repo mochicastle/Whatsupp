@@ -5,6 +5,13 @@ import menuStyles from '../services/menuStyles'
 
 const Menu = (props) => {
     const classes = menuStyles()
+    
+    const handleFavoritesSubmit = (event) => {
+        event.preventDefault()
+        //if user has no regulars, redirect to /regulars page
+        //else if user has regulars, link to /suggested-restaurant
+    }
+    
     return (
         <div className={classes.root}>
             <div className={classes.buttonContainer}>
