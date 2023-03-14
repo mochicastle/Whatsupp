@@ -87,7 +87,7 @@ const WildcardForm = (props) => {
           ...wildcard,
           categories: "",
           radius: "",
-          price: [],
+          price: [...wildcard.price, priceValue],
           term: "restaurants",
           open_now: true,
         });
@@ -253,7 +253,7 @@ const WildcardForm = (props) => {
               >
                 Submit
               </Button>
-              {wildcardError && <p>No restaurants match your criteria, please try again</p>}
+              {wildcardError && <p>No restaurants match your criteria, please try again.</p>}
             </div>
           </form>
         )}
