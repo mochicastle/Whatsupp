@@ -13,14 +13,9 @@ import NewRegularForm from "./NewRegularForm";
 import RegularTile from "./RegularTile";
 
 const RegularsListPage = (props) => {
-  console.log("RegularsListPage > props: ", props);
-  //move regulars state up to App.js so Menu component can also access regulars state
-  //const [regulars, setRegulars] = useState([]);
-
   const [errors, setErrors] = useState({});
 
   const getRegulars = async () => {
-    console.log("RegularsListPage > getRegulars > props.user.id: ", props.user.id);
     try {
       //const response = await fetch("/api/v1/regulars")
       //include user's ID in the request to get favorites:
@@ -42,7 +37,6 @@ const RegularsListPage = (props) => {
   }, []);
 
   const addRegular = async (newRegularData) => {
-    console.log("RegularsListPage > addRegular > props.user.id: ", props.user.id);
     try {
       //include user's ID in the request to add a restaurant to favorites:
       newRegularData.userId = props.user.id;
@@ -83,8 +77,6 @@ const RegularsListPage = (props) => {
   if (props.user) {
     form = <NewRegularForm addRegular={addRegular} />;
   }
-
-  console.log("RegularsListPage > regulars: ", props.regulars);
 
   return (
     <div className="f-container text-center">
